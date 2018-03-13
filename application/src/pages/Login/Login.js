@@ -1,15 +1,54 @@
 import React, { Component } from 'react';
+const url = 'http://localhost:5000/api';
 
 class Login extends Component {
     constructor() {
         super();
         this.state = {
+            users: [],
             username: '',
             password: '',
         }
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+    }
+
+    componentDidMount() {
+        console.log('component has mounted');
+        this.getUsers();
+    }
+
+    getUsers() {
+        fetch(`${url}/users`)
+            .then(response => response.json())
+            .then(userResponseArray => {
+                console.log(userResponseArray);
+                this.setState({
+                    users: userResponseArray
+                });
+            })
+            .catch(error => console.log(`Error with Fetch getUsers: ${error}`));
+    }
+
+    addUsers(event) {
+        event.preventDefault();
+        const user_data = {
+            username: this.state.username,
+            password: this.state.password,
+        }
+        const request = new Request(`${url}/new-user`, {
+            method: 'POST',
+            headers: new Headers({ 'Content-Type': 'application/json' }),
+            body: JSON.stringify(user_data)
+        });
+        fetch(request)
+            .then(response => {
+                console.log(`post was successful: ${response}`);
+                this.getCountries();
+            })
+            .catch(error => console.log(`Fetch failed on addCountry Post: ${error}`)
+            )
     }
 
     // Handler for username input
@@ -49,6 +88,11 @@ class Login extends Component {
                     </label>
                     <button>Login</button>
                 </form>
+                <ul>
+                    {this.state.users.map(pit => (
+                        <li key={pit.id}>{pit.username} | {pit.password}</li>
+                    ))}
+                </ul>
             </div>
         );
     }
