@@ -9,10 +9,11 @@ class Login extends Component {
             username: '',
             password: '',
         }
+        this.addUsers = this.addUsers.bind(this);
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     }
+    
 
     componentDidMount() {
         console.log('component has mounted');
@@ -31,25 +32,7 @@ class Login extends Component {
             .catch(error => console.log(`Error with Fetch getUsers: ${error}`));
     }
 
-    addUsers(event) {
-        event.preventDefault();
-        const user_data = {
-            username: this.state.username,
-            password: this.state.password,
-        }
-        const request = new Request(`${url}/new-user`, {
-            method: 'POST',
-            headers: new Headers({ 'Content-Type': 'application/json' }),
-            body: JSON.stringify(user_data)
-        });
-        fetch(request)
-            .then(response => {
-                console.log(`post was successful: ${response}`);
-                this.getCountries();
-            })
-            .catch(error => console.log(`Fetch failed on addCountry Post: ${error}`)
-            )
-    }
+
 
     // Handler for username input
     handleUsernameChange(event) {
@@ -65,21 +48,34 @@ class Login extends Component {
         });
     }
 
-    handleLoginSubmit(e) {
-        console.log('button was clicked');
-        console.log('username is: ' + this.state.username);
-        console.log('password is: ' + this.state.password);
-        e.preventDefault(); // prevents page refresh
-        this.setState({
-            username: '',
-            password: '',
+    addUsers(event) {
+        event.preventDefault();
+        const user_data = {
+            username: this.state.username,
+            password: this.state.password,
+        }
+        const request = new Request(`${url}/new-user`, {
+            method: 'POST',
+            headers: new Headers({ 'Content-Type': 'application/json' }),
+            body: JSON.stringify(user_data)
+        });
+        fetch(request)
+        .then(response => {
+             console.log(`post was successful: ${response}`);
+            this.getUsers();
+            this.setState({
+                username: '',
+                password: '',
+            });
         })
+        .catch(error => console.log(`Fetch failed on addUsers Post: ${error}`)
+        )
     }
 
     render() {
         return (
             <div>
-                <form onSubmit={this.handleLoginSubmit}>
+                <form onSubmit={this.addUsers}>
                     <label>Username:
                     <input type="text" value={this.state.username} onChange={this.handleUsernameChange} />
                     </label>

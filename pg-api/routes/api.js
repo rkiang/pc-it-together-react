@@ -24,14 +24,13 @@ router.get('/users', function (req, res) {
 router.post('/new-user', function (req, res) {
     const username = req.body.username;
     const password = req.body.password;
-
     pool.connect((err, db, done) => {
         if (err) {
             console.error('error open connection', err);
             return res.status(400).send({ error: err });
         }
         else {
-            db.query('INSERT INTO users( username, password ) VALUES ($1,$2)',
+            db.query('INSERT INTO users( username, password ) VALUES ($1, $2)',
                 [username, password], (err, table) => {
                     done();
                     if (err) {
