@@ -1,7 +1,18 @@
 const express = require('express');
+const encryptLib = require('../modules/encryption');
+const userStrategy = require('../strategies/localstrategy');
+const pool = require('../modules/pool.js');
 const router = express();
 
 const pool = require('../modules/pool');
+
+router.get('/', (req, res) => {
+    if (req.isAuthenticated()) {
+        res.send(req.user);
+    } else {
+        res.sendStatus(403);
+    }
+});
 
 router.get('/users', function (req, res) {
     pool.connect(function (err, db, done) {

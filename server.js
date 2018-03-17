@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
+const passport = require('./strategies/localstrategy.js');
+
 const api = require('./routes/api');
 
 const PORT = 5000;
