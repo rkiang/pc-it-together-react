@@ -14,6 +14,35 @@ router.get('/', (req, res) => {
     }
 });
 
+router.post('/register', (req, res, next) => {
+    const username = req.body.username;
+    const password = encryptLib.encryptPassword(req.body.password);
+    const saveUser = {
+        username: req.body.username,
+        password: encryptLib.encryptPassword(req.body.password)
+    };
+    console.log('new user:', saveUser);
+    pool.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id',
+        [saveUser.username, saveUser.password], (err, result) => {
+            if (err) {
+                console.log("Error inserting data: ", err);
+                res.sendStatus(500);
+            } else {
+                res.sendStatus(201);
+            }
+        });
+});
+
+router.post('/login', userStrategy.authenticate('local'), (req, res) => {
+    res.sendStatus(200);
+});
+
+router.get('/logout', (req, res) => {
+    req.logout();
+    res.sendStatus(200);
+});
+
+
 router.get('/users', function (req, res) {
     pool.connect(function (err, db, done) {
         if (err) {

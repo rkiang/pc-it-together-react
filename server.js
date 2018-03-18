@@ -13,9 +13,17 @@ const app = express();
 // allows certain cross-origin requests (DELETE fails without this)
 app.use(cors());
 
+const userRouter = require('./routes/api');
+
 // body parser creating req.body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(sessionConfig);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 // all of our api routes are in ./routes/api
 app.use('/api', api);

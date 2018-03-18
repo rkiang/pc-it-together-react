@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 const url = 'http://localhost:5000/api';
 
 class Login extends Component {
@@ -84,6 +85,8 @@ class Login extends Component {
                     </label>
                     <button>Login</button>
                 </form>
+                <hr />
+                <p><Link to='./pages/Register/Register.js'>Sign Up</Link></p>
                 <ul>
                     {this.state.users.map(pit => (
                         <li key={pit.id}>{pit.username} | {pit.password}</li>
