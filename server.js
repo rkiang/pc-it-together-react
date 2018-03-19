@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const passport = require('./strategies/localstrategy.js');
+const sessionConfig = require('./modules/session-middleware');
 
 const api = require('./routes/api');
 

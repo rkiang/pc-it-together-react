@@ -1,7 +1,6 @@
 const express = require('express');
 const encryptLib = require('../modules/encryption');
 const userStrategy = require('../strategies/localstrategy');
-const pool = require('../modules/pool.js');
 const router = express();
 
 const pool = require('../modules/pool');
