@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+
+import Register from '../Register/Register';
+
 const url = 'http://localhost:5000/api';
 
 class Login extends Component {
@@ -14,7 +17,7 @@ class Login extends Component {
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
-    
+
 
     componentDidMount() {
         console.log('component has mounted');
@@ -61,16 +64,16 @@ class Login extends Component {
             body: JSON.stringify(user_data)
         });
         fetch(request)
-        .then(response => {
-             console.log(`post was successful: ${response}`);
-            this.getUsers();
-            this.setState({
-                username: '',
-                password: '',
-            });
-        })
-        .catch(error => console.log(`Fetch failed on addUsers Post: ${error}`)
-        )
+            .then(response => {
+                console.log(`post was successful: ${response}`);
+                this.getUsers();
+                this.setState({
+                    username: '',
+                    password: '',
+                });
+            })
+            .catch(error => console.log(`Fetch failed on addUsers Post: ${error}`)
+            )
     }
 
     render() {
@@ -86,7 +89,15 @@ class Login extends Component {
                     <button>Login</button>
                 </form>
                 <hr />
-                <p><Link to='./pages/Register/Register.js'>Sign Up</Link></p>
+                <Router>
+                    <div>
+                        <p><Link to='/register'>Sign Up</Link></p>
+                        <hr />
+                        <Switch>
+                            <Route path='/register' component={Register} />
+                        </Switch>
+                    </div>
+                </Router>
                 <ul>
                     {this.state.users.map(pit => (
                         <li key={pit.id}>{pit.username} | {pit.password}</li>
