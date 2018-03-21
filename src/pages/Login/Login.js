@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-
-import Register from '../Register/Register';
 
 const url = 'http://localhost:5000/api';
 
@@ -89,15 +86,7 @@ class Login extends Component {
                     <button>Login</button>
                 </form>
                 <hr />
-                <Router>
-                    <div>
-                        <p><Link to='/register'>Sign Up</Link></p>
-                        <hr />
-                        <Switch>
-                            <Route path='/register' component={Register} />
-                        </Switch>
-                    </div>
-                </Router>
+                <h3><a href={'/register'}>Sign Up</a></h3>
                 <ul>
                     {this.state.users.map(pit => (
                         <li key={pit.id}>{pit.username} | {pit.password}</li>
