@@ -41,8 +41,7 @@ class Register extends Component {
         });
         fetch(request)
             .then(response => {
-                console.log(`post was successful: ${response}`);
-                // this.getUsers();
+                // console.log(`post was successful: ${response}`);
                 this.setState({
                     username: '',
                     password: '',
