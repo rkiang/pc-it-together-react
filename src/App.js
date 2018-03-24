@@ -6,6 +6,7 @@ import './App.css';
 // pages
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import Home from './pages/Home/Home';
 
 class App extends Component {
   render() {
@@ -19,11 +20,12 @@ class App extends Component {
           <div className="Links">
             <ul>
               <li><Link to='/'>Login</Link></li>
-              <li><Link to='/register'>Register</Link></li>
+              {/* <li><Link to='/register'>Register</Link></li> */}
             </ul>
             <Switch>
               <Route exact path='/' component={Login} />
               <Route path='/register' component={Register} />
+              <Route path='/home' component={Home} />
             </Switch>
           </div>
         </Router>

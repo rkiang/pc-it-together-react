@@ -68,7 +68,7 @@ passport.use('local', new localStrategy({
             release();
 
             if(result.rows[0] != undefined) {
-              user = result.rows[0];
+              const user = result.rows[0];
               console.log('User obj', user);
               // Hash and compare
               if(encryptLib.comparePassword(password, user.password)) {

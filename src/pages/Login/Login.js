@@ -55,7 +55,7 @@ class Login extends Component {
             username: this.state.username,
             password: this.state.password,
         }
-        const request = new Request(`${url}/new-user`, {
+        const request = new Request(`${url}/login`, {
             method: 'POST',
             headers: new Headers({ 'Content-Type': 'application/json' }),
             body: JSON.stringify(user_data)
