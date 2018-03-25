@@ -68,10 +68,15 @@ class Login extends Component {
                     username: '',
                     password: '',
                 })
-                this.props.history.push('/home');;
-            })
-            .catch(error => console.log(`Fetch failed on addUsers Post: ${error}`)
-            )
+                if (response.status === 200) {
+                    console.log(`success:  ${response}`);
+                    this.props.history.push('/home');
+                } else {
+                    console.log(`failure error: ${response}`);
+                }
+            },
+        ).catch(error => console.log(`Fetch failed on addUsers Post: ${error}`)
+        )
     }
 
     render() {
