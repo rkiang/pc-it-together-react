@@ -7,6 +7,7 @@ import './App.css';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Home from './pages/Home/Home';
+import { PrivateRoute } from './components/';
 
 class App extends Component {
   render() {
@@ -25,7 +26,8 @@ class App extends Component {
             <Switch>
               <Route exact path='/' component={Login} />
               <Route path='/register' component={Register} />
-              <Route path='/home' component={Home} />
+              {/* <Route path='/home' component={Home} /> */}
+              <PrivateRoute exact path='/home' component={Home} />
             </Switch>
           </div>
         </Router>
